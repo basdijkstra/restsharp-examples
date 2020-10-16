@@ -1,6 +1,9 @@
 ﻿using NUnit.Framework;
 using RestSharp;
+using RestSharp.Deserializers;
+using RestSharpExamples.DataEntities;
 using System.Net;
+
 
 namespace RestSharpExamples.Tests
 {
@@ -12,15 +15,19 @@ namespace RestSharpExamples.Tests
         {
             // arrange
             RestClient client = new RestClient("http://api.zippopotam.us");
-            RestRequest request = new RestRequest("nl/3825", Method.GET);
+            RestRequest request = new RestRequest("US/80212", Method.GET);
 
             // act
             IRestResponse response = client.Execute(request);
+            LocationResponse locationResponse =
+                new JsonDeserializer().
+                Deserialize<LocationResponse>(response);
 
             // assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(locationResponse.Places[0].State, Is.EqualTo("Colorado")); 
         }
-
+        
         [Test]
         public void ContentTypeTest()
         {
