@@ -2,16 +2,19 @@
 using RestSharp;
 using RestSharp.Deserializers;
 using RestSharpExamples.DataEntities;
+using System;
 using System.Net;
+using System.Linq;
+using System.Collections.Generic;
 
 
 namespace RestSharpExamples.Tests
 {
     [TestFixture]
-    public class BasicTests
+    public class IYQTests
     {
         [Test]
-        public void StatusCodeTest()
+        public void Get_locationResponse_Country_Shouldbe_200()
         {
             // arrange
             RestClient client = new RestClient("http://api.zippopotam.us");
@@ -25,21 +28,12 @@ namespace RestSharpExamples.Tests
 
             // assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            Assert.That(locationResponse.Places[0].State, Is.EqualTo("Colorado")); 
-        }
-        
-        [Test]
-        public void ContentTypeTest()
-        {
-            // arrange
-            RestClient client = new RestClient("http://api.zippopotam.us");
-            RestRequest request = new RestRequest("nl/3825", Method.GET);
+            Assert.That(locationResponse.Places[0].State.Equals("Colorado"));
+            Assert.That(locationResponse.Places[0].StateAbbreviation.Equals("CO"));
+            //Console.WriteLine(response.Content);
+            Console.WriteLine(response.ErrorException.Message);
 
-            // act
-            IRestResponse response = client.Execute(request);
 
-            // assert
-            Assert.That(response.ContentType, Is.EqualTo("application/json"));
         }
     }
 }
