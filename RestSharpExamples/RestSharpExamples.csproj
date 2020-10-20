@@ -59,6 +59,7 @@
     <Compile Include="Tests\BasicTests.cs" />
     <Compile Include="Tests\DataDrivenTests.cs" />
     <Compile Include="Tests\DeserializationTests.cs" />
+    <Compile Include="Tests\IYQTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
