@@ -19,8 +19,7 @@ namespace RestSharpExamples.Tests
             IRestResponse response = client.Execute(request);
 
             LocationResponse locationResponse =
-                new JsonDeserializer().
-                Deserialize<LocationResponse>(response);
+                new JsonConvert.DeserializeObject<LocationResponse>(response.Content);
 
             // assert
             Assert.That(locationResponse.CountryAbbreviation, Is.EqualTo("US"));
@@ -37,8 +36,7 @@ namespace RestSharpExamples.Tests
             IRestResponse response = client.Execute(request);
 
             LocationResponse locationResponse =
-                new JsonDeserializer().
-                Deserialize<LocationResponse>(response);
+                new JsonConvert.DeserializeObject<LocationResponse>(response.Content);
 
             // assert
             Assert.That(locationResponse.Places[0].State, Is.EqualTo("New York"));
